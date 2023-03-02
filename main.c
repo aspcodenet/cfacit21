@@ -1,5 +1,10 @@
 #include <stdio.h>
 
+typedef struct{
+    float Value;
+    int Date;
+} Measurement;
+
 void FourNumbers(){
     int numbers[4];
 
@@ -131,11 +136,51 @@ void TemperatureMeasurements2(){
 }
 
 
+void TemperatureMeasurementsStructs(){
+    int antal;
+    printf("Ange antal:");
+    scanf(" %d", &antal);
+
+    Measurement measurements[antal];
+ 
+    for(int i = 0; i < antal;i++){
+        float num;
+        printf("Ange mätvärde %d:", i+1);
+        scanf(" %f", &num);
+        measurements[i].Value =num;
+
+        int datum;
+        printf("Ange datum yyyyMMdd %d:", i+1);
+        scanf(" %i", &datum);
+        measurements[i].Date =datum;
+
+    }
+
+    float largestSoFar = measurements[0].Value;
+    float smallestSoFar = measurements[0].Value;
+    float sum = measurements[0].Value;
+    for(int i = 1 ; i < antal; i++){
+        sum += measurements[i].Value;
+        if(measurements[i].Value > largestSoFar )
+            largestSoFar = measurements[i].Value;
+        if(measurements[i].Value < smallestSoFar )
+            smallestSoFar = measurements[i].Value;
+    }
+
+    for(int i = 0; i < antal;i++)
+        printf("Measurement :%d\n%d\n%.2f\n", i+1, measurements[i].Date, measurements[i].Value);
+    printf("Average:%.2f", sum/antal);
+    printf("Largest:%.2f\n", largestSoFar);
+    printf("Smallest:%.2f\n", smallestSoFar);
+}
+
+
 int main(){
     //FourNumbers();
     //FourNumbers2();
     //Replace();
     //TemperatureMeasurements();
-    TemperatureMeasurements2();
+    //TemperatureMeasurements2();
+    TemperatureMeasurementsStructs();
     return 0;
 }
